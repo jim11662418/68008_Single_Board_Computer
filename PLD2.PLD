@@ -1,0 +1,61 @@
+Name       SIMPLE-68008_PLD_2;
+Partno     ATF16V8B;
+Date       06/19/24;
+Revision   01;
+Designer   DOUG G;
+Company    LAND BOARDS LLC;
+Assembly   U03;
+Location   RUSTBELT, USA;
+Device     G16V8;
+
+/*
+	RESET CONTROLLER, ROM CHIP SELECT
+*/
+
+/* Inputs */
+PIN    1   = CLK;
+PIN    2   = !CPUWR;
+PIN    3   = !CPUDS;
+PIN    4   = CPUA16;
+PIN    5   = CPUA17;
+PIN    6   = CPUA18;
+PIN    7   = CPUA19;
+PIN    8   = !POR;
+PIN    9   = CPUD0;
+
+/* Outputs */
+PIN	 13  = SWAPADR;
+PIN    14  = SWAP;
+PIN    15  = !ROMCS;
+PIN    16  = !MEMRD;
+PIN    17  = LEDLE;           /* to pin 11 on the 74LS373 LED port */
+PIN    18  = !CPUHLT;
+PIN    19  = !CPURES;
+
+/* CLEAR SWAP AT POWER UP, RESET	*/
+/* SET SWAP BY 1ST WR TO START OF EPROM SPACE		*/
+/* SWAP.CK = CLK; */
+/* SWAP.AR = POR; */
+
+MEMRD = !CPUWR & CPUDS & !CPUA19
+#       !CPUWR & CPUDS &  CPUA19 & !CPUA18
+#       !CPUWR & CPUDS &  CPUA19 & !CPUA17
+#       !CPUWR & CPUDS &  CPUA19 & !CPUA16;
+
+SWAP = CPUDS &  CPUWR & CPUA19 & !CPUA18 & !CPUA17 & !CPUA16 & CPUD0 & !POR
+#      SWAP  & !POR;
+
+SWAPADR = CPUDS & CPUWR & CPUA19 & !CPUA18 & !CPUA17 & !CPUA16;
+
+ROMCS = CPUDS & !CPUWR & CPUA19 & !CPUA18
+#       CPUDS & !CPUWR & CPUA19 & !CPUA17
+#       CPUDS & !CPUWR & CPUA19 & !CPUA16
+#       CPUDS & !CPUA19 & !CPUA18 & !CPUA17 & !CPUA16 & !SWAP;
+
+LEDLE = CPUDS & CPUWR & CPUA19 & CPUA18 & CPUA17 & !CPUA16;
+
+CPUHLT.OE = POR;
+CPUHLT = POR;
+
+CPURES.OE = POR;
+CPURES = POR;
