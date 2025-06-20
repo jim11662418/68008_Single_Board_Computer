@@ -14,5 +14,5 @@ A Home-brew Motorola 68008 Single Board Computer based on the [Land Boards SIMPL
 <p align="center">68008 SBC PLD2</p><br>
 <p align="center"><img src="/images/68008 SBC LEDs.png"/>
 <p align="center">68008 SBC LEDs</p><br>
-<p align="center"><img src="/images/68008 Monitor.png"/>
+<p align="center"><img src="/images/68008 SBC Monitor.png"/>
 <p align="center">68008 SBC Monitor</p><br>
